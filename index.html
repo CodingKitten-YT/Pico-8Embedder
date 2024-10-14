@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KittenGames PICO-8 Embedder</title>
+    <style>
+        /* Set the background color to black and make sure the body takes up the full height of the viewport */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        /* Style the container where the PICO-8 player will be embedded */
+        #container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        /* Center the heading for the embedder message */
+        h1 {
+            font-size: 2rem;
+        }
+    </style>
+    <script src="player.js"></script> <!-- Load the player.js file -->
+</head>
+<body>
+    <div id="container">
+        <!-- The PICO-8 game will be embedded here -->
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            // Function to get URL parameters
+            function getUrlParam(param) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(param);
+            }
+
+            // Get the 'url' parameter from the query string
+            const picoCartUrl = getUrlParam('url');
+
+            // Check if a URL is provided, if not display the message
+            if (picoCartUrl) {
+                PicoPlayer('container', picoCartUrl); // Load the PICO-8 cart
+            } else {
+                document.getElementById('container').innerHTML = '<h1>KittenGames PICO-8 embedder</h1>';
+            }
+        });
+    </script>
+</body>
+</html>
